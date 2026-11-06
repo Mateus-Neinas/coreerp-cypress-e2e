@@ -1,12 +1,16 @@
 {
   "name": "coreerp-cypress-e2e",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
-    "cy:open": "cypress open",
-    "cy:run": "cypress run"
+    "app:dev": "npm --prefix ../coreerp-web-react run dev -- --host 127.0.0.1",
+    "cy:open:only": "cypress open",
+    "cy:run:only": "cypress run",
+    "cy:open": "start-server-and-test app:dev http://127.0.0.1:5173 cy:open:only",
+    "cy:run": "start-server-and-test app:dev http://127.0.0.1:5173 cy:run:only"
   },
   "devDependencies": {
-    "cypress": "^14.5.1"
+    "cypress": "^14.5.1",
+    "start-server-and-test": "^2.0.8"
   }
 }
