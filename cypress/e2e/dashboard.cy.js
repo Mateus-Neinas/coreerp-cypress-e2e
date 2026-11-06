@@ -7,6 +7,12 @@ describe("CoreERP dashboard", () => {
     cy.contains("Faturamento do mês").should("be.visible");
   });
 
+  it("filters recent orders by customer", () => {
+    cy.get('[aria-label="Pesquisar no sistema"]').type("Casa Nativa");
+    cy.get('[data-testid="orders-table"]').should("contain", "Casa Nativa");
+    cy.get('[data-testid="orders-table"]').should("not.contain", "Aurora Comércio");
+  });
+
   it("creates an order through the accessible form", () => {
     cy.get('[data-testid="add-order"]').click();
     cy.get('[data-testid="order-dialog"]').should("be.visible");
