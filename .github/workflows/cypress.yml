@@ -1,0 +1,32 @@
+name: Cypress E2E
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  cypress:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Cypress tests
+        uses: actions/checkout@v4
+        with:
+          path: coreerp-cypress-e2e
+      - name: Checkout React frontend
+        uses: actions/checkout@v4
+        with:
+          repository: Mateus-Neinas/coreerp-web-react
+          ref: main
+          path: coreerp-web-react
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install frontend dependencies
+        run: npm install --no-audit --no-fund --prefix coreerp-web-react
+      - name: Install Cypress dependencies
+        run: npm install --no-audit --no-fund --prefix coreerp-cypress-e2e
+      - name: Run end-to-end suite
+        run: npm run cy:run --prefix coreerp-cypress-e2e
