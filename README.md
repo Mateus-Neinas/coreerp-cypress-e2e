@@ -1,34 +1,40 @@
 # CoreERP Cypress E2E
 
-Automação de ponta a ponta para validar a interface React do CoreERP no navegador.
+Repositório dedicado às jornadas de ponta a ponta do frontend React do CoreERP.
 
-## O que demonstra
+## O que valida
 
-- Cypress configurado para uma aplicação Vite.
-- Verificação da tela principal e dos indicadores.
-- Navegação entre áreas do ERP.
-- Busca de registros e comportamento em viewport mobile.
-- Uso de seletores de teste estáveis em vez de depender da aparência do CSS.
+- Abertura do painel e renderização dos indicadores.
+- Busca de pedidos por cliente.
+- Criação de pedido pelo formulário acessível.
+- Navegação para a área de pedidos.
+- Layout em viewport mobile.
 
-## Executar
+## Preparar e executar localmente
 
-Requer Node.js 20 ou superior. Em outro terminal, suba o frontend:
+Requer Node.js 20 ou superior. Clone este repositório e `coreerp-web-react` lado a lado, com as pastas mantendo esses nomes:
 
-```bash
-npm run dev --prefix ../coreerp-web-react
+```text
+workspace/
+├── coreerp-cypress-e2e/
+└── coreerp-web-react/
 ```
 
-Depois, nesta pasta:
+Na pasta `coreerp-cypress-e2e`, instale as dependências e rode:
 
 ```bash
 npm install
 npm run cy:run
-# ou interface visual
-npm run cy:open
 ```
 
-A URL base pode ser alterada com `CYPRESS_BASE_URL`.
+O script inicia o Vite, aguarda a URL ficar pronta, executa Cypress e encerra o servidor ao terminar. Para abrir a interface do Cypress, use `npm run cy:open`.
 
-## Escopo
+A URL pode ser alterada com `CYPRESS_BASE_URL`; para usar um frontend já iniciado, rode `npm run cy:run:only`.
 
-Estes testes verificam jornadas visíveis do navegador. O contrato HTTP fica no repositório `coreerp-api-tests`.
+## CI
+
+O workflow em `.github/workflows/cypress.yml` baixa este repositório e o frontend, instala as dependências e executa as mesmas jornadas em cada pull request e push para `main`.
+
+## Seletores
+
+Os testes usam atributos `data-testid` nos componentes de interface e rótulos acessíveis onde isso torna o cenário mais próximo do uso real.
